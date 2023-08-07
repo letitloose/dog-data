@@ -15,7 +15,7 @@ func TestImportLegacy(t *testing.T) {
 
 		initDB := &InitLegacyModel{
 			DB:        db,
-			filename:  "./dbf/toller.dbf",
+			filename:  "./dbf/tollers.dbf",
 			tablename: "tollers",
 		}
 

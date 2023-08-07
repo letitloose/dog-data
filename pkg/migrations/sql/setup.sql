@@ -30,7 +30,7 @@ CREATE TABLE codetables (
 
 create table litters (
     id INTEGER NOT NULL PRIMARY KEY AUTO_INCREMENT,
-    regnum VARCHAR(10) NOT NULL
+    regnum VARCHAR(10) NOT NULL UNIQUE
 );
 
 CREATE table addresses (
