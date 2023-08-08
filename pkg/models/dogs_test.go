@@ -10,7 +10,7 @@ func TestInsert(t *testing.T) {
 
 	dogModel := DogModel{DB: db}
 
-	dog := Dog{regnum: "DOG7", name: "carl", litterid: 1, sex: "SD", sire: 1, dam: 1}
+	dog := Dog{Regnum: "DOG7", Name: "carl", Litterid: 1, Sex: "SD", Sire: 1, Dam: 1}
 	err := dogModel.Insert(dog)
 	if err != nil {
 		t.Fatal(err)

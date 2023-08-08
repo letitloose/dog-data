@@ -10,41 +10,41 @@ type LegacyModel struct {
 }
 
 type Toller struct {
-	id             int
-	regnum         string
-	nsdtrcregnum   string
-	sequencenum    string
-	name           string
-	titlename      string
-	litterregnum   string
-	sex            string
-	color          string
-	pra            string
-	hipClear       string
-	eyeClear       string
-	heartClear     string
-	elbowClear     string
-	whelpdate      time.Time
-	nba            string
-	alive          string
-	owner          string
-	address        string
-	intact         string
-	city           string
-	state          string
-	zip            string
-	country        string
-	sireregnum     string
-	sirename       string
-	damregnum      string
-	damname        string
-	breederName    string
-	breederAddress string
-	breederCity    string
-	breederState   string
-	breederZip     string
-	breederCountry string
-	callname       string
+	Id             int
+	Regnum         string
+	Nsdtrcregnum   string
+	Sequencenum    string
+	Name           string
+	Titlename      string
+	Litterregnum   string
+	Sex            string
+	Color          string
+	Pra            string
+	HipClear       string
+	EyeClear       string
+	HeartClear     string
+	ElbowClear     string
+	Whelpdate      time.Time
+	Nba            string
+	Alive          string
+	Owner          string
+	Address        string
+	Intact         string
+	City           string
+	State          string
+	Zip            string
+	Country        string
+	Sireregnum     string
+	Sirename       string
+	Damregnum      string
+	Damname        string
+	BreederName    string
+	BreederAddress string
+	BreederCity    string
+	BreederState   string
+	BreederZip     string
+	BreederCountry string
+	Callname       string
 }
 
 func (model LegacyModel) GetTollers() ([]*Toller, error) {
@@ -52,7 +52,7 @@ func (model LegacyModel) GetTollers() ([]*Toller, error) {
 	tollers := []*Toller{}
 
 	query := `select a_registra, a_nsdtrc_r, a_seq, a_dogname, a_title_na, a_litterre, a_sex, a_color, 
-		a_pra, a_hipclear, a_eyeclear, a_heart_cl, a_elbow_cl, a_nba, a_alive, a_owner, a_address1,
+		a_pra, a_hipclear, a_eyeclear, a_heart_cl, a_elbow_cl, a_whelpdat, a_nba, a_alive, a_owner, a_address1,
 		a_intact, a_city, a_state, a_zip, a_country, a_sire_reg, a_sirename, a_dam_regn, a_damname,
 		a_breeder, a_breedera, a_breederc, a_breeders, a_breederz, a_breeder0, a_callname from tollers;`
 
@@ -67,11 +67,12 @@ func (model LegacyModel) GetTollers() ([]*Toller, error) {
 
 	for rows.Next() {
 		t := &Toller{}
-		err = rows.Scan(&t.regnum, &t.nsdtrcregnum, &t.sequencenum, &t.name, &t.titlename, &t.litterregnum,
-			&t.sex, &t.color, &t.pra, &t.hipClear, &t.eyeClear, &t.heartClear, &t.elbowClear, &t.nba, &t.alive,
-			&t.owner, &t.address, &t.intact, &t.city, &t.state, &t.zip, &t.country, &t.sireregnum, &t.sirename,
-			&t.damregnum, &t.damname, &t.breederName, &t.breederAddress, &t.breederCity, &t.breederState,
-			&t.breederZip, &t.breederCountry, &t.callname)
+		err = rows.Scan(&t.Regnum, &t.Nsdtrcregnum, &t.Sequencenum, &t.Name, &t.Titlename, &t.Litterregnum,
+			&t.Sex, &t.Color, &t.Pra, &t.HipClear, &t.EyeClear, &t.HeartClear, &t.ElbowClear, &t.Whelpdate, 
+			&t.Nba, &t.Alive,
+			&t.Owner, &t.Address, &t.Intact, &t.City, &t.State, &t.Zip, &t.Country, &t.Sireregnum, &t.Sirename,
+			&t.Damregnum, &t.Damname, &t.BreederName, &t.BreederAddress, &t.BreederCity, &t.BreederState,
+			&t.BreederZip, &t.BreederCountry, &t.Callname)
 		tollers = append(tollers, t)
 	}
 

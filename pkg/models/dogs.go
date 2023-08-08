@@ -6,20 +6,20 @@ import (
 )
 
 type Dog struct {
-	id           int
-	regnum       string
-	nsdtrcregnum string
-	sequencenum  string
-	litterid     int
-	name         string
-	callname     string
-	whelpdate    time.Time
-	sex          string
-	nba          bool
-	alive        bool
-	intact       bool
-	sire         int
-	dam          int
+	Id           int
+	Regnum       string
+	Nsdtrcregnum string
+	Sequencenum  string
+	Litterid     int
+	Name         string
+	Callname     string
+	Whelpdate    time.Time
+	Sex          string
+	Nba          bool
+	Alive        bool
+	Intact       bool
+	Sire         int
+	Dam          int
 }
 
 type DogModel struct {
@@ -32,8 +32,8 @@ func (model *DogModel) Insert(dog Dog) error {
 			whelpdate, sex, nba, alive, intact, sire, dam) 
 			values (NULLIF(?, ''),?,?,?,?,?,?,?,?,?,?,?,?);`
 
-	result, err := model.DB.Exec(statement, dog.regnum, dog.nsdtrcregnum, dog.sequencenum, dog.litterid, dog.name,
-		dog.callname, dog.whelpdate, dog.sex, dog.nba, dog.alive, dog.intact, dog.sire, dog.dam)
+	result, err := model.DB.Exec(statement, dog.Regnum, dog.Nsdtrcregnum, dog.Sequencenum, dog.Litterid, 
+		dog.Name, dog.Callname, dog.Whelpdate, dog.Sex, dog.Nba, dog.Alive, dog.Intact, dog.Sire, dog.Dam)
 	if err != nil {
 		return err
 	}
