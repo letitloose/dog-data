@@ -26,6 +26,9 @@ func TestMigrateDogs(t *testing.T) {
 		LitterModel: models.LitterModel{
 			DB: db,
 		},
+		HealthModel: models.HealthModel{
+			DB: db,
+		},
 	}
 
 	err := model.MigrateDogs()

@@ -16,7 +16,8 @@ type CodetableModel struct {
 }
 
 const (
-	CategorySex = "sex"
+	CategorySex    = "sex"
+	CategoryHealth = "health"
 )
 
 func (model *CodetableModel) GetByCode(code, category string) Codetable {
@@ -35,4 +36,27 @@ func (model *CodetableModel) GetByCode(code, category string) Codetable {
 	}
 
 	return codetable
+}
+
+func (model *CodetableModel) GetByCategory(category string) ([]*Codetable, error) {
+
+	codetables := []*Codetable{}
+
+	query := `select id, category, code, display
+		from codetables
+		where category = ?`
+
+	rows, err := model.DB.Query(query, category)
+	if err != nil {
+		return codetables, err
+	}
+	defer rows.Close()
+
+	for rows.Next() {
+		ct := &Codetable{}
+		err = rows.Scan(&ct.Id, &ct.Category, &ct.Code, &ct.Display)
+		codetables = append(codetables, ct)
+	}
+
+	return codetables, nil
 }

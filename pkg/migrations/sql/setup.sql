@@ -57,7 +57,7 @@ CREATE TABLE dogs (
     id INTEGER NOT NULL PRIMARY KEY AUTO_INCREMENT,
     regnum VARCHAR(24) NOT NULL,
     nsdtrcregnum VARCHAR(24) NOT NULL,
-    sequencenum VARCHAR(24) NOT NULL,
+    sequencenum VARCHAR(14) NOT NULL,
     litterid INT NOT NULL,
     name VARCHAR(255) NOT NULL,
     callname VARCHAR(255)  NOT NULL,
@@ -92,7 +92,7 @@ Create TABLE health (
     id INTEGER NOT NULL PRIMARY KEY AUTO_INCREMENT,
     dogid INT,
     healthtype VARCHAR(10),
-    certid VARCHAR(14),
+    certid VARCHAR(24),
     FOREIGN key (dogid) references dogs(id),
     FOREIGN KEY (healthtype) REFERENCES codetables(id)
 );
@@ -101,7 +101,6 @@ Create TABLE colors (
     id INTEGER NOT NULL PRIMARY KEY AUTO_INCREMENT,
     dogid INT,
     colortype VARCHAR(10),
-    certid VARCHAR(14),
     FOREIGN KEY (dogid) REFERENCES dogs(id),
     FOREIGN KEY (colortype) REFERENCES codetables(id)
 );

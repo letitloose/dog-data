@@ -8,6 +8,11 @@ CREATE TABLE codetables (
 insert into codetables (id, category, code, display) values ("SD", "sex", "D", "Dog");
 insert into codetables (id, category, code, display) values ("SB", "sex", "B", "Bitch");
 
+insert into codetables (id, category, code, display) values ("HHIP", "health", "HIP", "Hip");
+insert into codetables (id, category, code, display) values ("HHRT", "health", "HRT", "Heart");
+insert into codetables (id, category, code, display) values ("HEYE", "health", "EYE", "Eye");
+insert into codetables (id, category, code, display) values ("HELB", "health", "ELB", "Elbow");
+
 create table litters (
     id INTEGER NOT NULL PRIMARY KEY AUTO_INCREMENT,
     regnum VARCHAR(10) NOT NULL UNIQUE
@@ -36,6 +41,14 @@ CREATE TABLE dogs (
     FOREIGN KEY (dam) REFERENCES dogs(id)
 );
 
+Create TABLE health (
+    id INTEGER NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    dogid INT,
+    healthtype VARCHAR(10),
+    certid VARCHAR(14),
+    FOREIGN key (dogid) references dogs(id),
+    FOREIGN KEY (healthtype) REFERENCES codetables(id)
+);
 
 insert into dogs (regnum, nsdtrcregnum, sequencenum, litterid, name, callname, sex, whelpdate) values ("DOG1", "", "", 1, "SIRE", "", "SD", NOW());
 

@@ -12,6 +12,7 @@ type MigrateModel struct {
 	DogModel       models.DogModel
 	CodetableModel models.CodetableModel
 	LitterModel    models.LitterModel
+	HealthModel    models.HealthModel
 }
 
 func (model *MigrateModel) MigrateDogs() error {
@@ -31,7 +32,13 @@ func (model *MigrateModel) MigrateDogs() error {
 
 	male := model.CodetableModel.GetByCode("D", models.CategorySex)
 	female := model.CodetableModel.GetByCode("B", models.CategorySex)
+	if err != nil {
+		return err
+	}
 
+	if err != nil {
+		return err
+	}
 	for _, currentToller := range legacyTollers {
 
 		if currentToller.Regnum == "" {
@@ -79,6 +86,9 @@ func (model *MigrateModel) MigrateDogs() error {
 		currentDog.Dam = dam.Id
 
 		//litter
+		if currentToller.Litterregnum == "" {
+			currentToller.Litterregnum = "no-litter"
+		}
 		litter, err := model.LitterModel.GetByRegnum(currentToller.Litterregnum)
 		if err != nil {
 			//litter not found, so insert it
@@ -111,12 +121,83 @@ func (model *MigrateModel) MigrateDogs() error {
 			}
 		}
 
+		//insert health checks
+		err = model.migrateHealthInfo(currentToller)
+		if err != nil {
+			return err
+		}
+
 	}
 	log.Println("sires not found:", siresNF)
 	log.Println("dams not found:", damsNF)
 	return nil
 }
 
+func (model *MigrateModel) migrateHealthInfo(toller *models.Toller) error {
+
+	dog, err := model.DogModel.GetByRegnum(toller.Regnum)
+	if err != nil {
+		return err
+	}
+
+	//hips
+	if toller.HipClear != "" {
+		health := models.Health{
+			Dogid:      dog.Id,
+			HealthType: "HHIP",
+			CertId:     toller.HipClear,
+		}
+
+		err = model.HealthModel.Insert(health)
+		if err != nil {
+			return err
+		}
+	}
+
+	//eyes
+	if toller.EyeClear != "" {
+		health := models.Health{
+			Dogid:      dog.Id,
+			HealthType: "HEYE",
+			CertId:     toller.EyeClear,
+		}
+
+		err = model.HealthModel.Insert(health)
+		if err != nil {
+			return err
+		}
+	}
+
+	//heart
+	if toller.HeartClear != "" {
+		health := models.Health{
+			Dogid:      dog.Id,
+			HealthType: "HHRT",
+			CertId:     toller.HeartClear,
+		}
+
+		err = model.HealthModel.Insert(health)
+		if err != nil {
+			return err
+		}
+	}
+
+	//elbows
+	if toller.ElbowClear != "" {
+		health := models.Health{
+			Dogid:      dog.Id,
+			HealthType: "HELB",
+			CertId:     toller.ElbowClear,
+		}
+
+		err = model.HealthModel.Insert(health)
+		if err != nil {
+			return err
+		}
+	}
+
+	return nil
+}
 func yesNoToBool(yesNo string) bool {
 	return yesNo == "Y"
 }

@@ -75,6 +75,9 @@ func main() {
 		LitterModel: models.LitterModel{
 			DB: ndb,
 		},
+		HealthModel: models.HealthModel{
+			DB: ndb,
+		},
 	}
 
 	err = model.MigrateDogs()
