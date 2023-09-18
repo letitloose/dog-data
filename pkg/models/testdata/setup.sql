@@ -13,19 +13,19 @@ create table litters (
     regnum VARCHAR(10) NOT NULL UNIQUE
 );
 
-insert into litters (regnum) values ("litter1");
+insert into litters (regnum) values ("no-litter");
 
 CREATE TABLE dogs (
     id INTEGER NOT NULL PRIMARY KEY AUTO_INCREMENT,
-    regnum VARCHAR(14) NOT NULL UNIQUE,
-    nsdtrcregnum VARCHAR(14),
-    sequencenum VARCHAR(14),
-    litterid INT,
+    regnum VARCHAR(24) NOT NULL,
+    nsdtrcregnum VARCHAR(24) NOT NULL,
+    sequencenum VARCHAR(24) NOT NULL,
+    litterid INT NOT NULL,
     name VARCHAR(255) NOT NULL,
-    callname VARCHAR(255),
+    callname VARCHAR(255)  NOT NULL,
     whelpdate DATETIME NOT NULL,
-    sex VARCHAR(10),
-    nba BIT,
+    sex VARCHAR(10) NOT NULL,
+    nba BOOL DEFAULT true,
     alive BOOL DEFAULT true,
     intact BOOL DEFAULT true,
     sire INT,
@@ -37,7 +37,7 @@ CREATE TABLE dogs (
 );
 
 
-insert into dogs (regnum, name, whelpdate) values ("DOG1", "SIRE", NOW());
+insert into dogs (regnum, nsdtrcregnum, sequencenum, litterid, name, callname, sex, whelpdate) values ("DOG1", "", "", 1, "SIRE", "", "SD", NOW());
 
 CREATE TABLE IF NOT EXISTS `tollers` (
 `A_REGISTRA` VARCHAR(14),
@@ -83,7 +83,7 @@ INSERT INTO tollers (`A_REGISTRA`,`A_NSDTRC_R`,`A_SEQ`,`A_DOGNAME`,`A_TITLE_NA`,
     `A_OWNER`,`A_ADDRESS1`,`A_INTACT`,`A_CITY`,`A_STATE`,`A_ZIP`,`A_COUNTRY`,`A_SIRE_REG`,`A_SIRENAME`,
     `A_DAM_REGN`,`A_DAMNAME`,`A_BREEDER`,`A_BREEDERA`,`A_BREEDERC`,`A_BREEDERS`,`A_BREEDERZ`,`A_BREEDER0`,
     `A_ROM_ROMX`,`A_CALLNAME`,`A_EMAIL`) 
-    VALUES ("regnum", "nsdtrcregnum","seqnum","name","titlename","litterrn","sex","color","pra",
+    VALUES ("regnum", "nsdtrcregnum","seqnum","name","titlename","litterrn","D","color","pra",
     "hipclear","eyeclear","heartclear","elbowclear",NOW(),"nba","Y","owner","address1","Y","city",
-    "state","zip", "country","sireregnum","sirename","damregnum","damname","breedername","breederaddress",
+    "state","zip", "country","DOG1","sirename","DOG1","damname","breedername","breederaddress",
     "breedercity","brst","breederzip","breedercountry","","callname","");

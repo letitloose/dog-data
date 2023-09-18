@@ -7,6 +7,7 @@ import (
 
 	_ "github.com/go-sql-driver/mysql"
 	"github.com/letitloose/dog-data/pkg/migrations"
+	"github.com/letitloose/dog-data/pkg/models"
 )
 
 type application struct {
@@ -32,14 +33,14 @@ func main() {
 		app.errorLog.Fatal(err)
 	}
 
-	initLegacyDB := &migrations.InitLegacyModel{
-		DB: db,
-	}
+	// initLegacyDB := &migrations.InitLegacyModel{
+	// 	DB: db,
+	// }
 
-	err = initLegacyDB.ImportDBFDir("pkg/migrations/dbf")
-	if err != nil {
-		app.errorLog.Fatal(err)
-	}
+	// err = initLegacyDB.ImportDBFDir("pkg/migrations/dbf")
+	// if err != nil {
+	// 	app.errorLog.Fatal(err)
+	// }
 
 	//initialize the maria DB
 	app.infoLog.Println("Initializing the dogdata DB from SQL scripts")
@@ -53,12 +54,33 @@ func main() {
 		DB: ndb,
 	}
 
-	err = initDB.RunScript("pkg/migrations/sql/setup.sql")
+	err = initDB.RunScript("../../pkg/migrations/sql/setup.sql")
 	if err != nil {
 		app.errorLog.Fatalf("failed to initialize new DB: %s", err)
 	}
 
 	app.infoLog.Println("Ready to migrate!")
+
+	//migrate from legacy to maria
+	model := migrations.MigrateModel{
+		LegacyModel: models.LegacyModel{
+			DB: db,
+		},
+		DogModel: models.DogModel{
+			DB: ndb,
+		},
+		CodetableModel: models.CodetableModel{
+			DB: ndb,
+		},
+		LitterModel: models.LitterModel{
+			DB: ndb,
+		},
+	}
+
+	err = model.MigrateDogs()
+	if err != nil {
+		app.errorLog.Fatalf("failed to migrate from legacy to new DB: %s", err)
+	}
 
 }
 

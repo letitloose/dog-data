@@ -3,8 +3,8 @@ package models
 import "database/sql"
 
 type Litter struct {
-	id     int
-	regnum string
+	Id     int
+	Regnum string
 }
 
 type LitterModel struct {
@@ -15,7 +15,7 @@ func (model *LitterModel) Insert(litter Litter) error {
 
 	statement := `insert into litters (regnum) values (?);`
 
-	result, err := model.DB.Exec(statement, litter.regnum)
+	result, err := model.DB.Exec(statement, litter.Regnum)
 	if err != nil {
 		return err
 	}
@@ -26,4 +26,20 @@ func (model *LitterModel) Insert(litter Litter) error {
 	}
 
 	return nil
+}
+
+func (model *LitterModel) GetByRegnum(litternum string) (Litter, error) {
+	litter := Litter{}
+
+	query := `select id, regnum
+		from litters
+		where regnum = ?`
+
+	row := model.DB.QueryRow(query, litternum)
+	err := row.Scan(&litter.Id, &litter.Regnum)
+	if err != nil {
+		return litter, err
+	}
+
+	return litter, nil
 }

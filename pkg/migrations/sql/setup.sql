@@ -55,15 +55,15 @@ CREATE TABLE people (
 
 CREATE TABLE dogs (
     id INTEGER NOT NULL PRIMARY KEY AUTO_INCREMENT,
-    regnum VARCHAR(14) NOT NULL UNIQUE,
-    nsdtrcregnum VARCHAR(14),
-    sequencenum VARCHAR(14),
-    litterid INT,
+    regnum VARCHAR(24) NOT NULL,
+    nsdtrcregnum VARCHAR(24) NOT NULL,
+    sequencenum VARCHAR(24) NOT NULL,
+    litterid INT NOT NULL,
     name VARCHAR(255) NOT NULL,
-    callname VARCHAR(255),
+    callname VARCHAR(255)  NOT NULL,
     whelpdate DATETIME NOT NULL,
-    sex VARCHAR(10),
-    nba BIT,
+    sex VARCHAR(10) NOT NULL,
+    nba BOOL DEFAULT true,
     alive BOOL DEFAULT true,
     intact BOOL DEFAULT true,
     sire INT,
@@ -184,3 +184,5 @@ insert into codetables (id, category, code, display) values ("CAQUE", "state", "
 insert into codetables (id, category, code, display) values ("CAYT", "state", "YT", "Yukon Territory");
 
 insert into users(email, name, hashed_password, created) values ('louis.garwood@gmail.com', "Lou Garwood", "$2a$12$0joxuXNvL5Q02IBH9SZu/OH6kAS7M8PkwCo.MjK.EncG8bYHsb/oW", Now());
+
+insert into litters (regnum) values ("no-litter");

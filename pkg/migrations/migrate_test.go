@@ -20,9 +20,15 @@ func TestMigrateDogs(t *testing.T) {
 		DogModel: models.DogModel{
 			DB: db,
 		},
+		CodetableModel: models.CodetableModel{
+			DB: db,
+		},
+		LitterModel: models.LitterModel{
+			DB: db,
+		},
 	}
 
-	err := model.migrateDogs()
+	err := model.MigrateDogs()
 	if err != nil {
 		t.Fatal(err)
 	}
