@@ -1,3 +1,9 @@
+DROP TABLE if exists colors;
+DROP TABLE if exists health;
+DROP TABLE if exists dogs;
+DROP TABLE if exists litters;
+DROP TABLE if exists codetables;
+DROP TABLE if exists tollers;
 CREATE TABLE codetables (
     id VARCHAR(10) NOT NULL PRIMARY KEY,
     category VARCHAR(128) NOT NULL,
@@ -12,6 +18,17 @@ insert into codetables (id, category, code, display) values ("HHIP", "health", "
 insert into codetables (id, category, code, display) values ("HHRT", "health", "HRT", "Heart");
 insert into codetables (id, category, code, display) values ("HEYE", "health", "EYE", "Eye");
 insert into codetables (id, category, code, display) values ("HELB", "health", "ELB", "Elbow");
+
+insert into codetables (id, category, code, display) values ("CB", "color", "B", "Buff");
+insert into codetables (id, category, code, display) values ("CR", "color", "R", "Red");
+insert into codetables (id, category, code, display) values ("CDR", "color", "DR", "Dark Red");
+insert into codetables (id, category, code, display) values ("CLR", "color", "LR", "Light Red");
+insert into codetables (id, category, code, display) values ("CG", "color", "G", "Gold");
+insert into codetables (id, category, code, display) values ("CW", "color", "W", "White");
+insert into codetables (id, category, code, display) values ("CWM", "color", "WM", "White Markings");
+insert into codetables (id, category, code, display) values ("CF", "color", "F", "Fawn");
+insert into codetables (id, category, code, display) values ("CS", "color", "S", "Straw");
+insert into codetables (id, category, code, display) values ("CO", "color", "O", "Orange");
 
 create table litters (
     id INTEGER NOT NULL PRIMARY KEY AUTO_INCREMENT,
@@ -100,3 +117,11 @@ INSERT INTO tollers (`A_REGISTRA`,`A_NSDTRC_R`,`A_SEQ`,`A_DOGNAME`,`A_TITLE_NA`,
     "hipclear","eyeclear","heartclear","elbowclear",NOW(),"nba","Y","owner","address1","Y","city",
     "state","zip", "country","DOG1","sirename","DOG1","damname","breedername","breederaddress",
     "breedercity","brst","breederzip","breedercountry","","callname","");
+
+Create TABLE colors (
+    id INTEGER NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    dogid INT,
+    colorcode VARCHAR(10),
+    FOREIGN KEY (dogid) REFERENCES dogs(id),
+    FOREIGN KEY (colorcode) REFERENCES codetables(id)
+);

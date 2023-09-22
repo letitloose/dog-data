@@ -127,6 +127,12 @@ func (model *MigrateModel) MigrateDogs() error {
 			return err
 		}
 
+		//insert colors
+		err = model.migrateColors(currentToller)
+		if err != nil {
+			return err
+		}
+
 	}
 	log.Println("sires not found:", siresNF)
 	log.Println("dams not found:", damsNF)
@@ -250,6 +256,93 @@ func (model *MigrateModel) importSiresAndDams(tollers []*models.Toller) error {
 
 	log.Println("sires inserted:", len(sires))
 	log.Println("dams inserted:", len(dams))
+
+	return nil
+}
+
+func (model *MigrateModel) migrateColors(toller *models.Toller) error {
+	dog, err := model.DogModel.GetByRegnum(toller.Regnum)
+	if err != nil {
+		return err
+	}
+
+	color := models.Color{
+		Dogid: dog.Id,
+	}
+
+	colorModel := models.ColorModel{DB: model.DogModel.DB}
+	if strings.Contains(strings.ToLower(toller.Color), "red") {
+		color.ColorCode = "CR"
+		if strings.Contains(strings.ToLower(toller.Color), "dk") {
+			color.ColorCode = "CDR"
+		}
+		if strings.Contains(strings.ToLower(toller.Color), "lt") {
+			color.ColorCode = "CLR"
+		}
+
+		err = colorModel.Insert(color)
+		if err != nil {
+			return err
+		}
+	}
+
+	if strings.Contains(strings.ToLower(toller.Color), "white") {
+		color.ColorCode = "CW"
+
+		if strings.Contains(strings.ToLower(toller.Color), "markings") {
+			color.ColorCode = "CWM"
+		}
+
+		err = colorModel.Insert(color)
+		if err != nil {
+			return err
+		}
+	}
+
+	if strings.Contains(strings.ToLower(toller.Color), "gold") {
+		color.ColorCode = "CG"
+
+		err = colorModel.Insert(color)
+		if err != nil {
+			return err
+		}
+	}
+
+	if strings.Contains(strings.ToLower(toller.Color), "fawn") {
+		color.ColorCode = "CF"
+
+		err = colorModel.Insert(color)
+		if err != nil {
+			return err
+		}
+	}
+
+	if strings.Contains(strings.ToLower(toller.Color), "straw") {
+		color.ColorCode = "CS"
+
+		err = colorModel.Insert(color)
+		if err != nil {
+			return err
+		}
+	}
+
+	if strings.Contains(strings.ToLower(toller.Color), "buff") {
+		color.ColorCode = "CB"
+
+		err = colorModel.Insert(color)
+		if err != nil {
+			return err
+		}
+	}
+
+	if strings.Contains(strings.ToLower(toller.Color), "orange") {
+		color.ColorCode = "CO"
+
+		err = colorModel.Insert(color)
+		if err != nil {
+			return err
+		}
+	}
 
 	return nil
 }

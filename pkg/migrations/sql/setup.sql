@@ -100,9 +100,9 @@ Create TABLE health (
 Create TABLE colors (
     id INTEGER NOT NULL PRIMARY KEY AUTO_INCREMENT,
     dogid INT,
-    colortype VARCHAR(10),
+    colorcode VARCHAR(10),
     FOREIGN KEY (dogid) REFERENCES dogs(id),
-    FOREIGN KEY (colortype) REFERENCES codetables(id)
+    FOREIGN KEY (colorcode) REFERENCES codetables(id)
 );
 
 insert into codetables (id, category, code, display) values ("SD", "sex", "D", "Dog");
