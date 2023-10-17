@@ -39,8 +39,10 @@ CREATE table addresses (
     address2 VARCHAR(128),
     city VARCHAR(128),
     state VARCHAR(10),
+    country VARCHAR(10),
     zip VARCHAR(10),
-    FOREIGN KEY (state) REFERENCES codetables(id)
+    FOREIGN KEY (state) REFERENCES codetables(id),
+    FOREIGN KEY (country) REFERENCES codetables(id)
 );
 
 CREATE TABLE people (
@@ -181,6 +183,18 @@ insert into codetables (id, category, code, display) values ("CABC", "state", "B
 insert into codetables (id, category, code, display) values ("CANS", "state", "NS", "Nova Scotia");
 insert into codetables (id, category, code, display) values ("CAQUE", "state", "QUE", "Quebec");
 insert into codetables (id, category, code, display) values ("CAYT", "state", "YT", "Yukon Territory");
+
+insert into codetables (id, category, code, display) values ("COUSA", "country", "USA", "United States");
+insert into codetables (id, category, code, display) values ("COUK", "country", "UK", "United Kingdom");
+insert into codetables (id, category, code, display) values ("COCAN", "country", "CAN", "Canada");
+insert into codetables (id, category, code, display) values ("COGER", "country", "GER", "Germany");
+insert into codetables (id, category, code, display) values ("COSWI", "country", "SWI", "Switzerland");
+insert into codetables (id, category, code, display) values ("COJAP", "country", "JAP", "Japan");
+insert into codetables (id, category, code, display) values ("COFIN", "country", "FIN", "Finland");
+insert into codetables (id, category, code, display) values ("COSWE", "country", "SWE", "Sweden");
+insert into codetables (id, category, code, display) values ("CODEN", "country", "DEN", "Denmark");
+insert into codetables (id, category, code, display) values ("COMEX", "country", "MEX", "Mexico");
+insert into codetables (id, category, code, display) values ("COBEL", "country", "BEL", "Belgium");
 
 insert into users(email, name, hashed_password, created) values ('louis.garwood@gmail.com', "Lou Garwood", "$2a$12$0joxuXNvL5Q02IBH9SZu/OH6kAS7M8PkwCo.MjK.EncG8bYHsb/oW", Now());
 

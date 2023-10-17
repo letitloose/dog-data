@@ -1,9 +1,11 @@
+DROP TABLE if exists addresses;
 DROP TABLE if exists colors;
 DROP TABLE if exists health;
 DROP TABLE if exists dogs;
 DROP TABLE if exists litters;
 DROP TABLE if exists codetables;
 DROP TABLE if exists tollers;
+
 CREATE TABLE codetables (
     id VARCHAR(10) NOT NULL PRIMARY KEY,
     category VARCHAR(128) NOT NULL,
@@ -29,6 +31,9 @@ insert into codetables (id, category, code, display) values ("CWM", "color", "WM
 insert into codetables (id, category, code, display) values ("CF", "color", "F", "Fawn");
 insert into codetables (id, category, code, display) values ("CS", "color", "S", "Straw");
 insert into codetables (id, category, code, display) values ("CO", "color", "O", "Orange");
+
+insert into codetables (id, category, code, display) values ("SNY", "state", "NY", "New York");
+insert into codetables (id, category, code, display) values ("COUSA", "country", "USA", "United States");
 
 create table litters (
     id INTEGER NOT NULL PRIMARY KEY AUTO_INCREMENT,
@@ -124,4 +129,16 @@ Create TABLE colors (
     colorcode VARCHAR(10),
     FOREIGN KEY (dogid) REFERENCES dogs(id),
     FOREIGN KEY (colorcode) REFERENCES codetables(id)
+);
+
+CREATE table addresses (
+    id INTEGER NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    address1 VARCHAR(128),
+    address2 VARCHAR(128),
+    city VARCHAR(128),
+    state VARCHAR(10),
+    country VARCHAR(10),
+    zip VARCHAR(10),
+    FOREIGN KEY (state) REFERENCES codetables(id),
+    FOREIGN KEY (country) REFERENCES codetables(id)
 );
